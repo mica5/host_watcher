@@ -10,3 +10,5 @@ export DAEMON=
 export SSL_CERTIFICATE=
 export SSL_KEYFILE=
 export EXTRA_GUNICORN_ARGS="--reload"
+export CAPTURE_OUTPUT=false
+export KEY_AUTH=false

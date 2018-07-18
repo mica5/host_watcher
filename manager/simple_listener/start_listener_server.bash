@@ -10,9 +10,11 @@ source "$(dirname "$0")"/../../config.bash
 
 pid_file="$(dirname "$0")"/https.pid
 
+TIMEOUT=
 if [ -n "$DEBUG" ] && $DEBUG ; then
     DAEMON=
     LOG_FILE=
+    TIMEOUT="--timeout 0"
 else
     log_file="$(dirname "$0")"/log.txt
     if [ ! -e "$log_file" ] ; then
@@ -38,6 +40,19 @@ else
     SSL_KEYFILE=
 fi
 
+if $CAPTURE_OUTPUT ; then
+    CAPTURE_OUTPUT='--capture-output'
+else
+    CAPTURE_OUTPUT=
+fi
+
+if $KEY_AUTH ; then
+    KEY_AUTH="KEY_AUTH=true"
+else
+    KEY_AUTH="KEY_AUTH=false"
+fi
+
+$KEY_AUTH \
 gunicorn \
     -b $MANAGER_LISTEN_IP:$MANAGER_PORT \
     --pid "$pid_file" \
@@ -46,4 +61,6 @@ gunicorn \
     $SSL_CERTIFICATE \
     $SSL_KEYFILE \
     $EXTRA_GUNICORN_ARGS \
+    $TIMEOUT \
+    $CAPTURE_OUTPUT \
     $listener_server:api
