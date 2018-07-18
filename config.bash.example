@@ -2,6 +2,7 @@
 export MANAGER_IP=
 export MANAGER_PORT=
 export CACERT=
+export SIMPLE_PING_KEY=
 
 ## manager
 # gunicorn server
@@ -10,4 +11,7 @@ export DAEMON=
 export SSL_CERTIFICATE=
 export SSL_KEYFILE=
 export EXTRA_GUNICORN_ARGS="--reload"
-export SIMPLE_PING_KEY=eced5ae2e86b2a21b233a3a1d7e11992f7a4f3eb75cf8de3af8f25d026753d34
+export CAPTURE_OUTPUT=false
+export KEY_AUTH=false
+
+

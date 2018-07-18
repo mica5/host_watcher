@@ -1,0 +1,7 @@
+# to enable key access, set KEY_AUTH=true in config.bash
+
+# format:
+# devicename=key
+
+# example key
+raspberry_pi_weather=d06f18d4f13749d7dea72ddc7c602f2b7c4feff5d5b52f7bee8cfb93404d1360
