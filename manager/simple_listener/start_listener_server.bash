@@ -47,12 +47,11 @@ else
 fi
 
 if $KEY_AUTH ; then
-    KEY_AUTH="KEY_AUTH=true"
+    export KEY_AUTH=true
 else
-    KEY_AUTH="KEY_AUTH=false"
+    export KEY_AUTH=false
 fi
 
-$KEY_AUTH \
 gunicorn \
     -b $MANAGER_LISTEN_IP:$MANAGER_PORT \
     --pid "$pid_file" \
