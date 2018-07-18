@@ -1,0 +1,9 @@
+
+export MANAGER_IP=
+export MANAGER_PORT=
+
+# gunicorn server
+export MANAGER_LISTEN_IP=
+export DAEMON=
+export SSL_CERTIFICATE=
+export SSL_KEYFILE=
