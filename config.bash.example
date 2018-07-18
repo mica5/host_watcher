@@ -9,3 +9,4 @@ export MANAGER_LISTEN_IP=
 export DAEMON=
 export SSL_CERTIFICATE=
 export SSL_KEYFILE=
+export EXTRA_GUNICORN_ARGS="--reload"

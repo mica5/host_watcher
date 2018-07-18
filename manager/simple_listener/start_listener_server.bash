@@ -45,4 +45,5 @@ gunicorn \
     $DAEMON \
     $SSL_CERTIFICATE \
     $SSL_KEYFILE \
+    $EXTRA_GUNICORN_ARGS \
     $listener_server:api
