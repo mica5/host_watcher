@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+
+listener_server="$(ls "$(dirname "$0")"/listener_server.py)"
+listener_server="${listener_server%.py}"
+listener_server="${listener_server//\//.}"
+listener_server="$(echo $listener_server | sed 's/^\.*//')"
+
 source "$(dirname "$0")"/../../config.bash
 
 pid_file="$(dirname "$0")"/https.pid
@@ -9,14 +15,16 @@ if [ -n "$DEBUG" ] && $DEBUG ; then
     LOG_FILE=
 else
     log_file="$(dirname "$0")"/log.txt
-    LOG_FILE="--log-file \"$log_file\""
+    if [ ! -e "$log_file" ] ; then
+        touch "$log_file"
+    fi
+    LOG_FILE="--log-file $log_file"
     if $DAEMON ; then
         DAEMON=-D
     else
         DAEMON=
     fi
 fi
-
 
 if [ -n "$SSL_CERTIFICATE" ] ; then
     SSL_CERTIFICATE="--certfile $SSL_CERTIFICATE"
@@ -32,9 +40,9 @@ fi
 
 gunicorn \
     -b $MANAGER_LISTEN_IP:$MANAGER_PORT \
-    $DAEMON \
     --pid "$pid_file" \
     $LOG_FILE \
+    $DAEMON \
     $SSL_CERTIFICATE \
     $SSL_KEYFILE \
-    listener_server:api
+    $listener_server:api
