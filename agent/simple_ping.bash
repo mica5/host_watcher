@@ -4,7 +4,7 @@ source "$(dirname "$0")"/../config.bash
 my_public_ip="$(curl ipecho.net/plain --silent)"
 
 if [ -n "$CACERT" ] ; then
-    CACERT="--cacert \"$CACERT\""
+    CACERT="--cacert $CACERT"
 else
     CACERT=
 fi
