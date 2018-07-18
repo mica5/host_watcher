@@ -6,16 +6,16 @@ pid_file="$(dirname "$0")"/https.pid
 
 if [ -n "$DEBUG" ] && $DEBUG ; then
     DAEMON=
-    log_file=
+    LOG_FILE=
 else
     log_file="$(dirname "$0")"/log.txt
+    LOG_FILE="--log-file \"$log_file\""
     if $DAEMON ; then
         DAEMON=-D
     else
         DAEMON=
     fi
 fi
-LOG_FILE="--log-file \"$log_file\""
 
 
 if [ -n "$SSL_CERTIFICATE" ] ; then
@@ -34,6 +34,7 @@ gunicorn \
     -b $MANAGER_LISTEN_IP:$MANAGER_PORT \
     $DAEMON \
     --pid "$pid_file" \
-    "$LOG_FILE" \
-    "$SSL_CERTIFICATE" \
-    "$SSL_KEYFILE"
+    $LOG_FILE \
+    $SSL_CERTIFICATE \
+    $SSL_KEYFILE \
+    listener_server:api

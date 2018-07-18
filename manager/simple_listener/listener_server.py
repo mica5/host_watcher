@@ -29,4 +29,4 @@ class ListenResource:
         with open(log_file, 'a') as fa:
             print(logstr, file=fa)
 
-api.add_route('/simple_ping', DashboardResource())
+api.add_route('/simple_ping', ListenResource())

@@ -1,7 +1,9 @@
-
+## agent
 export MANAGER_IP=
 export MANAGER_PORT=
+export CACERT=
 
+## manager
 # gunicorn server
 export MANAGER_LISTEN_IP=
 export DAEMON=
