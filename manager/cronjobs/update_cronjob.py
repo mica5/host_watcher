@@ -1,8 +1,8 @@
 #!/usr/bin/env python
-"""Create a repository for a new agent
+"""
 
 Version 0.1
-datestr
+2018-07-26
 """
 import argparse
 import os
@@ -11,15 +11,16 @@ import subprocess
 def run_main():
     args = parse_cl_args()
 
+    this_dir = os.path.dirname(os.path.abspath(__file__))
     subprocess.call("""
-    {echo} cd "{crontab_dir}"
-    {echo} mkdir agents/"{name}"
-    {echo} cd agents/"{name}"
-    {echo} git init
+        cd "{this_dir}"/agents/"{name}"
+        cat > crontab.txt
+        git add crontab.txt
+        git commit -m "autocommit by {__file__}"
     """.format(
+        this_dir=this_dir,
         name=args.name,
-        crontab_dir=os.path.dirname(os.path.abspath(__file__)),
-        echo='echo' if args.dry_run else '',
+        __file__=__file__,
     ), shell=True)
 
     success = True
@@ -32,9 +33,6 @@ def parse_cl_args():
     )
 
     argParser.add_argument('name')
-    argParser.add_argument(
-        '--dry-run', default=False, action='store_true',
-    )
 
     args = argParser.parse_args()
     return args
