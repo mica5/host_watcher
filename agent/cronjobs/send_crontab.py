@@ -21,9 +21,9 @@ def run_main():
     args = parse_cl_args()
 
     command = """
-        \ncrontab -l | ssh {user}{manager} 'cat > "{cronjob_repo_path_on_manager}"/crontab.txt'
+        \ncrontab -l | ssh {user}{manager} 'cat > {cronjob_repo_path_on_manager}/crontab.txt'
         \nssh {user}{manager} <<EOF
-            cd "{cronjob_repo_path_on_manager}"
+            cd {cronjob_repo_path_on_manager}
             git add crontab.txt
             git commit -m "autocommit from host_watcher/agent/cronjobs/send_crontab.py"
         \nEOF\n
