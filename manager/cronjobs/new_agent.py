@@ -11,15 +11,31 @@ import subprocess
 def run_main():
     args = parse_cl_args()
 
+    manager_cronjobs_dir = os.path.dirname(os.path.abspath(__file__))
+    os.chdir(manager_cronjobs_dir)
+
+    echo = 'echo' if args.dry_run else ''
+    if args.user:
+        chown = '{echo} sudo chown -R {user}:{user} agents/{name}'.format(
+            echo=echo,
+            user=args.user,
+            name=args.name,
+        )
+    else:
+        chown = ''
+
     subprocess.call("""
-    {echo} cd "{crontab_dir}"
+    # "agents" directory already exists because it's
+    # part of the repository
     {echo} mkdir agents/"{name}"
     {echo} cd agents/"{name}"
     {echo} git init
+    {echo} eval 'cd - > /dev/null'
+    {chown}
     """.format(
+        chown=chown,
         name=args.name,
-        crontab_dir=os.path.dirname(os.path.abspath(__file__)),
-        echo='echo' if args.dry_run else '',
+        echo=echo,
     ), shell=True)
 
     success = True
@@ -32,6 +48,10 @@ def parse_cl_args():
     )
 
     argParser.add_argument('name')
+    argParser.add_argument(
+       'user', nargs='?',
+        help='user on manager who will (ch)own the cronjob repository.'
+    )
     argParser.add_argument(
         '--dry-run', default=False, action='store_true',
     )
