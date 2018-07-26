@@ -1,0 +1,9 @@
+# manager username and domain/ip
+user = None
+manager = None
+
+# the same name that was used when creating the cron job watcher repository
+# on the manager, which is also the name of the directory of that repository
+this_agent_name = None
+
+host_watcher_repo_on_manager = None

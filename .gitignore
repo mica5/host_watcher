@@ -106,3 +106,4 @@ config.bash
 /manager/simple_listener/https.pid
 /manager/simple_listener/log.txt
 /manager/simple_listener/keys.bash
+commit_host_watcher.txt
