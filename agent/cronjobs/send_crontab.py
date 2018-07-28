@@ -21,7 +21,7 @@ def run_main():
     args = parse_cl_args()
 
     port = '-p ' + manager_port if manager_port else ''
-    user = user+'@' if user else ''
+    user_str = user+'@' if user else ''
 
     command = """
         \ncrontab -l | ssh {user}{manager} {port} 'cat > {cronjob_repo_path_on_manager}/crontab.txt'
@@ -31,7 +31,7 @@ def run_main():
             git commit -m "autocommit from host_watcher/agent/cronjobs/send_crontab.py"
         \nEOF\n
     """.format(
-        user=user,
+        user=user_str,
         manager=manager,
         port=port,
         cronjob_repo_path_on_manager=cronjob_repo_path_on_manager,
