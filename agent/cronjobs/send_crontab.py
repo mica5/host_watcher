@@ -25,7 +25,7 @@ def run_main():
 
     command = """
         \ncrontab -l | ssh {user}{manager} {port} 'cat > {cronjob_repo_path_on_manager}/crontab.txt'
-        \nssh {user}{manager} {port} <<EOF
+        \nssh {user}{manager} {port} <<EOF >/dev/null
             cd {cronjob_repo_path_on_manager}
             git add crontab.txt
             git commit -m "autocommit from host_watcher/agent/cronjobs/send_crontab.py"
