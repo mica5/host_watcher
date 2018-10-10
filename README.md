@@ -1,5 +1,5 @@
 # host_watcher
-basic tools for watching hosts and devices
+basic tools for watching hosts and devices over a network
 
 # About
 
